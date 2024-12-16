@@ -1,59 +1,72 @@
 import { PDFDocument, rgb } from 'pdf-lib';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 // ...existing code...
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 async function createCertificate(data) {
   try {
-    const templatePath = path.resolve(__dirname, './functions/template.pdf');
-    console.log('Şablon şu konumdan yükleniyor:', templatePath);
+    // Yeni PDF belgesi oluşturun
+    const pdfDoc = await PDFDocument.create();
+    const page = pdfDoc.addPage([793, 1120]);
 
-    if (!fs.existsSync(templatePath)) {
-      throw new Error(`Şablon dosyası şu konumda bulunamadı: ${templatePath}`);
-    }
+    // Arka plan görüntüsünü yükleyin
+    const imageUrl = 'https://i.ibb.co/Hqm5DTz/Gelece-e-ye-il-bir-nefes-arma-an-etti-iniz-i-in-te-ekk-r-ederiz-her-fidan-umut-dolu-yar-nlar-n-simge.png'; // Arka plan görüntüsünün URL'si
+    const imageBytes = await fetch(imageUrl).then(res => res.arrayBuffer());
+    const image = await pdfDoc.embedPng(imageBytes);
 
-    const templateBytes = fs.readFileSync(templatePath);
-    if (!templateBytes || templateBytes.length === 0) {
-      throw new Error('Şablon dosyası okunamadı veya dosya boş');
-    }
-
-    // PDF belgesini yükleyin
-    const pdfDoc = await PDFDocument.load(templateBytes);
-
-    // İlk sayfayı alın
-    const pages = pdfDoc.getPages();
-    const firstPage = pages[0];
+    // Görüntüyü sayfaya ekleyin
+    page.drawImage(image, {
+      x: 0,
+      y: 0,
+      width: page.getWidth(),
+      height: page.getHeight(),
+    });
 
     // Verileri ekleyin
-    firstPage.drawText(data.name, {
-      x: 100,
-      y: 100,
-      size: 12,
-      color: rgb(0, 0, 0),
+    const text = `${data.firstName} ${data.lastName}`;
+    const textSize = 30;
+    const textWidth = page.getWidth() / 2 - (text.length * textSize) / 4;
+    const textHeight = page.getHeight() / 2 + textSize / 2 + 90;
+
+    page.drawText(text, {
+      x: textWidth,
+      y: textHeight,
+      size: textSize,
+      color: rgb(0.5, 0.5, 0.5), // RGB rengi gri
     });
 
     // Yeni PDF'yi kaydedin
     const pdfBytes = await pdfDoc.save();
-    const outputPath = path.resolve(__dirname, './path/to/output/certificate.pdf');
-    fs.writeFileSync(outputPath, pdfBytes);
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
 
-    console.log('PDF başarıyla oluşturuldu:', outputPath);
+    console.log('PDF başarıyla oluşturuldu:', url);
+    return url;
   } catch (error) {
     console.error('PDF oluşturma hatası:', error);
+    throw error;
   }
 }
 
-// ...existing code...
+export async function handleCreateCertificateButtonClick() {
+  const firstName = document.getElementById('firstNameInput').value;
+  const lastName = document.getElementById('lastNameInput').value;
+  const data = { firstName, lastName };
 
-// Örnek veri
-const data = { name: 'John Doe' };
-
-// createCertificate fonksiyonunu çağırın
-createCertificate(data);
+  try {
+    const pdfUrl = await createCertificate(data);
+    const downloadButton = document.getElementById('downloadButton');
+    downloadButton.style.display = 'block';
+    downloadButton.onclick = () => {
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.download = 'customized.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+  } catch (error) {
+    console.error('Sertifika oluşturma hatası:', error);
+  }
+}
 
 // ...existing code...
