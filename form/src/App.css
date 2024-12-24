@@ -3,15 +3,58 @@
   height: 100%;
   text-align: center;
 }
-
 .logo {
-  height: 6em;
+  /* height: em; */
   padding: 1.5em;
   display: block;
-  margin: 0 auto 1.5rem;
-  width: 300px;
-  height: 200px;
+  width: 240px;
+  height: 150px;
 }
+.footer {
+  width: 100%;
+  padding: 1rem;
+  background-color: #0d3445;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer button {
+  background-color: #205d77;
+  width: 20%;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.25s;
+  margin-bottom: 0.5rem;
+}
+
+.footer button:hover {
+  background-color: #1a4e5e;
+}
+
+.social-media-icons {
+  display: flex;
+  gap: 1.5rem; /* Increased gap */
+}
+
+.social-media-icons a {
+  color: #ffffff;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.social-media-icons a:hover {
+  color: #ffcc00; /* Change to desired hover color */
+}
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -19,14 +62,14 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
+/* @keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
@@ -44,44 +87,34 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f2f6f6; /* Light cyan background */
+  background-color: #bcbcbc; /* Light cyan background */
   color: #004d40; /* Dark green text */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0;
+  overflow: hidden; /* Prevent scrollbar */
 }
 
 .container {
-  width: 100vw;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-image: url('./assets/bg.png');
+  background-image: url('./assets/bgimage.jpg'); /* Set background image */
   background-size: cover;
   background-position: center;
-}
-
-.certificate {
-  position: relative; 
-  width: 800px; 
-  height: 565px; 
-  background-image: url('https://i.ibb.co/sJmMqvm/Ads-z-tasar-m-1.png'); 
-  background-size: contain;
-  border: 3px solid #0d3445;
-  box-shadow: 0 0 10px 5px #0d3445;
+  position: relative;
+  overflow: hidden; /* Prevent scrollbar */
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
 }
 
 .content {
-  padding: 2rem;
+  padding: 1rem;
   max-width: 25rem;
   width: 100%;
+  height: 81%;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex: 1; /* Allow content to take available space */
+  overflow: hidden; /* Prevent scrollbar */
 }
 
 h1 {
@@ -90,19 +123,19 @@ h1 {
 }
 
 input {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #0d3445;
+  width: 100%;
+  height: 20px;
+  margin: 5px 0;
+  border: 1px solid #eaeaec;
   color: #0d3445;
   padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  background-color: #3a8c1400;
+  margin-bottom: 0.89rem;
+  border-radius: 0.6rem;
+  background-color: #c7c8c8aa;
 }
 
 button {
-  background-color: #0d3445; /* Teal color for the button */
+  background-color: #205d77; /* Teal color for the button */
   color: #ffffff;
   padding: 10px 20px;
   border: none;
@@ -111,7 +144,6 @@ button {
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  color: white;
   cursor: pointer;
   transition: background-color 0.25s;
 }
@@ -124,29 +156,159 @@ button:disabled {
   background-color: #234e52;
   cursor: not-allowed;
 }
-
+.closeButton{
+  width: 50%;
+  background-color: #205d77;
+}
 .person {
   position: absolute; 
-  top: calc(40% - 18px); 
-  left: calc(50% + 135px); 
-  transform: translate(-50%, -50%); 
-  text-align: center; 
-  color: #333;
+  top: calc(40% - 300px);
+  left: calc(50% - 300px);
+  transform: translate(0, 0);
+  text-align: left; 
+  white-space: nowrap; 
+
 }
 
 .text {
-  font-size: 30px;
-  color:#5d9346;
-  text-transform: uppercase;
+  font-size: 26px;
+  color: #fff;
+  text-transform:capitalize;
   font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+}
+.modal {
+  position: absolute;
+  z-index: 1;
+  width: 50rem;
+  height: 18rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+  border-radius: 2rem;
+  padding: 1.6rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.modal-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal-content {
+  padding: 0.88rem;
+  overflow-y: auto;
+  max-height: 80%;
+  width: 95%;
+}
+
+.modal button {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 60%;
+  background-color: #ffffff70;
+  padding: 1.6rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.certificate-container {
+  width: 793.7px;
+  height: 1122.51px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(calc(-50% + 200px), calc(-50% + 280px)) scale(0.5);
+  transform-origin: top left;
+}
+.certificate {
+  position: relative; 
+  width: 1600px;
+  height: 2244px;
+  background-image: url('https://i.ibb.co/sJmMqvm/Ads-z-tasar-m-1.png'); 
+  background-size: contain;
+  box-shadow: 0 0 10px 5px #0d3445;
+  object-fit: cover;
+}
+
+.high-quality-certificate-container {
+  width: 1586px;
+  height: 2244px;
+  display: none;
+}
+
+.high-quality-certificate {
+  width: 1586px; /* Double A4 width */
+  height: 2244px; /* Double A4 height */
+  background-image: url('https://i.ibb.co/sJmMqvm/Ads-z-tasar-m-1.png');
+  background-size: contain;
+  border: 3px solid #0d3445;
+  box-shadow: 0 0 10px 5px #0d3445;
+  object-fit: cover;
+}
+
+@media (max-width: 1200px) {
+  .certificate-container {
+    transform: translate(calc(-50% + 200px), calc(-50% + 250px)) scale(0.75);
+  }
 }
 
 @media (max-width: 600px) {
   .content {
-    padding: 1rem;
+    padding: 0.5rem;
+    height: 70%
   }
+  .logo{
+    width: 200px;
+    height: 100px;
+  }
+
+  .footer {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  .social-media-icons {
+    justify-content: center;
+  }
+
   button {
-    background-color: #0d3445; /* Teal color for the button */
+    background-color: #205d77;
     color: #ffffff;
     padding: 10px 20px;
     border: none;
@@ -160,29 +322,87 @@ button:disabled {
     transition: background-color 0.25s;
   }
   input {
-    width: 90%
+    width: 80%;
   }
   .container {
     width: 100%;
     height: 100vh;
-    background-image: url('./assets/bg.png');
     background-size: cover;
     background-position: center;
   }
+  .overlay {
+    position: fixed;
+    width: 210mm;
+    height: 290mm;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  .certificate-container{
+    width: 793.7px; /* A4 width */
+    height: 1122.51px; /* A4 height */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; 
+    transform: translate(calc(-50% + 50px), calc(-50% + 30px)) scale(0.5);
+  }
+  .certificate {
+    position: relative; 
+    width: 793.7px; /* A4 width */
+    height: 1122.51px; /* A4 height */
+    background-image: url('https://i.ibb.co/sJmMqvm/Ads-z-tasar-m-1.png'); 
+    background-size: contain;
+    box-shadow: 0 0 10px 5px #0d3445;
+    margin-top: 0;
+    object-fit: cover; 
+  }
 
-  /* .person {
+  .person {
     position: absolute; 
-    top: calc(40% - 9px); 
-    left: calc(50% + 66px); 
-    transform: translate(-50%, -50%); 
-    text-align: center; 
-    color: #0d3445;
-  } */
+    top: calc(40% - 300px);
+    left: calc(50% - 295px); 
+    transform: translate(0,0); 
+    text-align: left; 
+  }
 
-  /* .text {
-    font-size: 15px;
-    color:#0d3445;
-    text-transform: uppercase;
-    color:#5d9346;
-  } */
+  .text {
+    font-size: 26px;
+    text-transform: capitalize;
+    color: #fff;
+   
+  }
+
+  .modal {
+    width: 90%;
+    height: 80%;
+    /* padding: 1rem; */
+  }
+
+  .modal-content {
+    max-height: calc(100% - 3rem); 
+    width: 90%;
+  }
+
+  .modal button {
+    position: sticky;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1rem;
+    width: fit-content;
+  }
+
+  .footer {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .social-media-icons {
+    justify-content: center;
+  }
 }
