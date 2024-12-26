@@ -271,6 +271,11 @@ button:disabled {
   height: 2244px;
   display: none;
 }
+.checkbox{
+display: flex;
+align-items: center;
+justify-content: center;
+}
 
 .high-quality-certificate {
   width: 1586px; /* Double A4 width */
@@ -280,6 +285,14 @@ button:disabled {
   border: 3px solid #0d3445;
   box-shadow: 0 0 10px 5px #0d3445;
   object-fit: cover;
+}
+.warning{
+  background-color: rgb(255, 15, 15);
+  color: white;
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+  border-radius: 0.8rem;
 }
 
 @media (max-width: 1200px) {
