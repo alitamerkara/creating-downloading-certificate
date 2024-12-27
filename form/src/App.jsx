@@ -8,6 +8,8 @@ import phones from './phones.json'; // Import the JSON file
 import { IoWarningOutline } from "react-icons/io5";
 import { saveUserInfo, db } from './firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { handleDownloadPngButtonClick } from '../functions';
+
 
 
 function App() {
@@ -37,12 +39,12 @@ function App() {
       }
       setLoading(true);
       const formattedPhone = `90${phone}`;
-      console.log(phones);
+      // console.log(phones);
       const phoneExists = Array.isArray(phones) && phones.some(entry => {
-        console.log(entry.telefon, formattedPhone);
+        // console.log(entry.telefon, formattedPhone);
         return entry.telefon === formattedPhone
       });
-      console.log(phoneExists);
+      // console.log(phoneExists);
       if (!phoneExists) {
         alert('Girilen telefon numarası geçerli değil.');
         setLoading(false);
@@ -54,7 +56,6 @@ function App() {
         setShowCertificate(true);
         setTimeout(async () => {
           const certificateElement = document.getElementById('certificate');
-          const highQualityCertificateElement = document.getElementById('highQualityCertificate');
           certificateElement.innerHTML = `
             <div class="certificate" style="background-image: url('https://i.ibb.co/MM7qh5L/certificate00.png'); background-size: contain; background-position: center; width: 210mm; height: 297mm;">
               <div class="person">
@@ -62,22 +63,9 @@ function App() {
               </div>
             </div>
           `;
-          highQualityCertificateElement.innerHTML = `
-            <div class="high-quality-certificate" style="background-image: url('https://i.ibb.co/MM7qh5L/certificate00.png'); background-size: contain; background-position: center; width: 210mm; height: 297mm;">
-              <div class="person" style="top: calc(40% - 512px); left: calc(50% - 480px);">
-                <p class="text" style="font-size: 52px;">${firstName} ${lastName}</p>
-              </div>
-            </div>
-          `;
-          await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for the content to render
-          const highQualityCertificateElementRendered = document.getElementById('highQualityCertificate');
-          const dataUrl = await toPng(highQualityCertificateElementRendered, { quality: 1, width: 1586, height: 2244, pixelRatio: 2 });
-          const link = document.createElement('a');
-          link.download = 'certificate.png';
-          link.href = dataUrl;
-          link.click();
+          await handleDownloadPngButtonClick();
           setDisableCheck(true);
-        }, 1000); // Increase the delay to ensure content is rendered
+        }, 0); // Increase the delay to ensure content is rendered
         setTimeout(() => {
           alert('Sertifikanız oluşturuldu. İndirme işlemi başladı.');
         }, 350);
@@ -94,16 +82,6 @@ function App() {
       setWarning(true);
   }
 }
-
-  const generateHighQualityImage = async () => {
-    const highQualityCertificateElement = document.getElementById('highQualityCertificate');
-    const dataUrl = await toPng(highQualityCertificateElement, { quality: 1, width: 1586, height: 2244, pixelRatio: 2 });
-    const link = document.createElement('a');
-    link.download = 'certificate.png';
-    link.href = dataUrl;
-    link.click();
-  };
-
 
   return (
     <div className="container">
@@ -179,10 +157,22 @@ function App() {
         </button>
         <div className={`modal ${showModal ? 'modal-show' : 'modal-hide'}`}>
           <div className='modal-content'>
-          DG Doğru Geri Kazanım olarak, bitkisel atık yağların doğru geri kazanımıyla hem doğal kaynakları koruyor hem de daha yeşil bir geleceğe katkı sağlıyoruz. Çevre dostu çalışmalarımızla sürdürülebilirlik için adımlar atmaya devam ediyoruz.
-          Bu kapsamda, Ankara Atatürk Orman Çiftliği arazisinde adınıza bir fidan bağışı gerçekleştirilmiştir. Bu fidan, çevre bilincinize olan katkınızı temsil ederek doğaya nefes olacak ve gelecek nesillere daha yaşanabilir bir dünya bırakmamıza destek olacaktır.
+          Değerli Doğa Dostu,
           </div>
-          <div className='modal-content'>Bu kapsamda, Ankara Atatürk Orman Çiftliği arazisinde adınıza bir fidan bağışı gerçekleştirilmiştir. Bu fidan, çevre bilincinize olan katkınızı temsil ederek doğaya nefes olacak ve gelecek nesillere daha yaşanabilir bir dünya bırakmamıza destek olacaktır.
+          <div className='modal-content'>
+          Her damla atık yağ, dönüşüm yolculuğunda bir umut tohumu olabilir. Siz, “Bitkisel Atık Yağlar Ormana Dönüşüyor” projemize destek vererek yalnızca çevremizi korumadınız; aynı zamanda geleceğe nefes, dünyaya yeşil bir miras bıraktınız.
+          </div>
+          <div className='modal-content'>
+          Bu sertifika, sizin duyarlılığınızın ve doğaya olan sevginizin bir yansımasıdır. Toprağa kazandırdığınız her fidan, hem çevremiz için bir nefes olacak hem de yarınlara daha yaşanabilir bir dünya armağan edecek.
+          </div>
+          <div className='modal-content'>
+            Birlikte dönüşüyoruz, birlikte büyüyoruz. Teşekkür ederiz!
+            </div>
+            <div className='modal-content'>
+            Sevgi ve saygılarımızla,
+            </div>
+            <div className='modal-content'>
+            DG Doğru Geri Kazanım
           </div>
           
         <button className='closeButton' onClick={()=>setShowModal(showModal=>!showModal)}>Kapat</button>

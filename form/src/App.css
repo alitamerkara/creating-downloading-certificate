@@ -181,8 +181,8 @@ button:disabled {
   position: absolute;
   z-index: 1;
   width: 50rem;
-  height: 18rem;
-  top: 50%;
+  height: 26rem;
+  top: 43%;
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: auto;
@@ -296,8 +296,13 @@ justify-content: center;
 }
 
 @media (max-width: 1200px) {
-  .certificate-container {
+  /* .certificate-container {
     transform: translate(calc(-50% + 200px), calc(-50% + 250px)) scale(0.75);
+  } */
+  .modal {
+    margin-top: 2rem;
+    width: 90%;
+    height: 80%;
   }
 }
 
@@ -391,9 +396,10 @@ justify-content: center;
   }
 
   .modal {
+    margin-top: 1.5rem;
     width: 90%;
     height: 80%;
-    /* padding: 1rem; */
+    padding: 1rem;
   }
 
   .modal-content {
